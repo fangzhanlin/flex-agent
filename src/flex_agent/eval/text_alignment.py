@@ -19,7 +19,7 @@ class SemanticMatch(BaseModel):
     agent_dimension: str
     matched_human_dimension: str | None = None
     thought: str = Field(default="", description="可选的简短判断依据。")
-    action: str = Field(default="", description="可选的简短匹配结果标记。")
+    action: str | None = Field(default=None, description="可选的简短匹配结果标记。")
 
 
 class TextSemanticAlignment(BaseModel):
@@ -187,7 +187,7 @@ def build_semantic_alignment_for_texts(
         })
     try:
         prompt = ChatPromptTemplate.from_messages([("human", text_alignment_prompt())])
-        chain = prompt | llm.with_structured_output(BatchSemanticAlignment, method="json_schema")
+        chain = prompt | llm.with_structured_output(BatchSemanticAlignment, method="json_mode")
         result: BatchSemanticAlignment = chain.invoke({"texts_json": json.dumps(prompt_rows, ensure_ascii=False)})
     except Exception as exc:
         print(f"  [warn] semantic evidence alignment LLM call failed: {exc!r}", file=sys.stderr)

@@ -47,7 +47,7 @@ def build_axial_semantic_alignment_for_texts(
 
     try:
         prompt = ChatPromptTemplate.from_messages([("human", axial_category_alignment_prompt())])
-        chain = prompt | llm.with_structured_output(BatchAxialSemanticAlignment, method="json_schema")
+        chain = prompt | llm.with_structured_output(BatchAxialSemanticAlignment, method="json_mode")
         result: BatchAxialSemanticAlignment = chain.invoke(
             {"texts_json": json.dumps(prompt_rows, ensure_ascii=False)}
         )

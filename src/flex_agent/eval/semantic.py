@@ -54,7 +54,7 @@ def build_dimension_name_alignment(
         )
 
     chat_prompt = ChatPromptTemplate.from_messages([("human", prompt)])
-    chain = chat_prompt | llm.with_structured_output(AlignmentResult, method="json_schema")
+    chain = chat_prompt | llm.with_structured_output(AlignmentResult, method="json_mode")
 
     try:
         result = chain.invoke({})

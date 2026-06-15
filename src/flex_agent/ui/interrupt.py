@@ -1,12 +1,17 @@
 from __future__ import annotations
 
 import asyncio
-import select
 import sys
-import termios
 import threading
-import tty
 
+if sys.platform != "win32":
+    import select
+    import termios
+    import tty
+else:
+    select = None
+    termios = None
+    tty = None
 
 class EscInterruptWatcher:
     """Watch stdin for Esc while an async agent turn is running."""
