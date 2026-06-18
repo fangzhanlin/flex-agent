@@ -59,7 +59,7 @@ class RunMeta(BaseModel):
     open_mode: str = "pure"
     sample_mode: str = "sequential"
     random_seed: int | None = None
-    concurrency_limit: int = 10
+    concurrency_limit: int = 50
     prompts_dir: str | None = None
     workspace_dir: str | None = None
 
